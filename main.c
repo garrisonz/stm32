@@ -8,7 +8,7 @@
 #define RCC_APB2ENR_IOPAEN (1u << 2)
 #define LED_PIN            0u
 #define PWM_STEPS          100u
-#define PWM_CYCLES         10u
+#define PWM_CYCLES         3u
 
 static void delay(volatile uint32_t cycles)
 {

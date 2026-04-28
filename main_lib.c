@@ -2,7 +2,9 @@
 
 #include "stm32f1_gpio.h"
 
-#define LED_PIN 0u
+#define LED_FIRST_PIN 0u
+#define LED_COUNT     8u
+#define LED_DELAY     250000u
 
 static void delay(volatile uint32_t cycles)
 {
@@ -14,12 +16,17 @@ static void delay(volatile uint32_t cycles)
 int main(void)
 {
     RCC_EnableGPIOA();
-    GPIO_ConfigOutputPushPull(GPIOA, LED_PIN);
+
+    for (uint32_t pin = LED_FIRST_PIN; pin < LED_FIRST_PIN + LED_COUNT; ++pin) {
+        GPIO_ConfigOutputPushPull(GPIOA, pin);
+        GPIO_WritePin(GPIOA, pin, GPIO_PIN_SET); /* LED off: pins idle high. */
+    }
 
     while (1) {
-        GPIO_WritePin(GPIOA, LED_PIN, GPIO_PIN_RESET); /* LED on: PA0 sinks current. */
-        delay(1000000u);
-        GPIO_WritePin(GPIOA, LED_PIN, GPIO_PIN_SET);   /* LED off. */
-        delay(1000000u);
+        for (uint32_t pin = LED_FIRST_PIN; pin < LED_FIRST_PIN + LED_COUNT; ++pin) {
+            GPIO_WritePin(GPIOA, pin, GPIO_PIN_RESET); /* LED on: PAx sinks current. */
+            delay(LED_DELAY);
+            GPIO_WritePin(GPIOA, pin, GPIO_PIN_SET);
+        }
     }
 }
