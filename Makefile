@@ -22,10 +22,13 @@ SRCS_TIMER_OLED := startup_stm32f103.c stm32f1_gpio.c main_timer_oled.c
 SRCS_TIMER_OLED_POLL := startup_stm32f103.c stm32f1_gpio.c main_timer_oled_poll.c
 SRCS_PWM_BREATH_LED := startup_stm32f103.c stm32f1_gpio.c main_pwm_breath_led.c
 SRCS_SERVO_BUTTON := startup_stm32f103.c stm32f1_gpio.c main_servo_button.c
+SRCS_SC0017_BUTTON := startup_stm32f103.c stm32f1_gpio.c main_sc0017_button.c
+SRCS_DC_MOTOR_BUTTON := startup_stm32f103.c stm32f1_gpio.c main_dc_motor_button.c
+SRCS_DC_MOTOR_TEST := startup_stm32f103.c stm32f1_gpio.c main_dc_motor_test.c
 SRCS := $(SRCS_$(shell echo $(TARGET) | tr a-z A-Z))
 OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
 
-.PHONY: all clean flash blink-pa0 blink-pa0-lib stop buzzer buttons light-buzzer oled oled-off ir-counter-oled encoder-oled timer-oled timer-oled-poll pwm-breath-led servo-button flash-blink-pa0 flash-blink-pa0-lib flash-stop flash-buzzer flash-buttons flash-light-buzzer flash-oled flash-oled-off flash-ir-counter-oled flash-encoder-oled flash-timer-oled flash-timer-oled-poll flash-pwm-breath-led flash-servo-button
+.PHONY: all clean flash blink-pa0 blink-pa0-lib stop buzzer buttons light-buzzer oled oled-off ir-counter-oled encoder-oled timer-oled timer-oled-poll pwm-breath-led servo-button sc0017-button dc-motor-button dc-motor-test flash-blink-pa0 flash-blink-pa0-lib flash-stop flash-buzzer flash-buttons flash-light-buzzer flash-oled flash-oled-off flash-ir-counter-oled flash-encoder-oled flash-timer-oled flash-timer-oled-poll flash-pwm-breath-led flash-servo-button flash-sc0017-button flash-dc-motor-button flash-dc-motor-test
 
 all: $(BUILD_DIR)/$(TARGET).bin
 
@@ -71,6 +74,15 @@ pwm-breath-led:
 servo-button:
 	$(MAKE) TARGET=servo_button
 
+sc0017-button:
+	$(MAKE) TARGET=sc0017_button
+
+dc-motor-button:
+	$(MAKE) TARGET=dc_motor_button
+
+dc-motor-test:
+	$(MAKE) TARGET=dc_motor_test
+
 flash-blink-pa0:
 	$(MAKE) TARGET=blink_pa0 flash
 
@@ -112,6 +124,15 @@ flash-pwm-breath-led:
 
 flash-servo-button:
 	$(MAKE) TARGET=servo_button flash
+
+flash-sc0017-button:
+	$(MAKE) TARGET=sc0017_button flash
+
+flash-dc-motor-button:
+	$(MAKE) TARGET=dc_motor_button flash
+
+flash-dc-motor-test:
+	$(MAKE) TARGET=dc_motor_test flash
 
 $(BUILD_DIR):
 	mkdir -p $@
