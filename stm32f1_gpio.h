@@ -24,6 +24,7 @@ typedef struct {
 void RCC_EnableGPIOA(void);
 void RCC_EnableGPIOB(void);
 void GPIO_ConfigOutputPushPull(GPIO_TypeDef *gpio, uint32_t pin);
+void GPIO_ConfigAlternatePushPull(GPIO_TypeDef *gpio, uint32_t pin);
 void GPIO_ConfigOutputOpenDrain(GPIO_TypeDef *gpio, uint32_t pin);
 void GPIO_ConfigInputPullUp(GPIO_TypeDef *gpio, uint32_t pin);
 void GPIO_WritePin(GPIO_TypeDef *gpio, uint32_t pin, GPIO_PinState state);

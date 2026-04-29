@@ -23,6 +23,15 @@ void GPIO_ConfigOutputPushPull(GPIO_TypeDef *gpio, uint32_t pin)
     *config |=  (0x2u << shift); /* Output push-pull, 2 MHz. */
 }
 
+void GPIO_ConfigAlternatePushPull(GPIO_TypeDef *gpio, uint32_t pin)
+{
+    volatile uint32_t *config = pin < 8u ? &gpio->CRL : &gpio->CRH;
+    uint32_t shift = (pin % 8u) * 4u;
+
+    *config &= ~(0xFu << shift);
+    *config |=  (0xAu << shift); /* Alternate-function push-pull, 2 MHz. */
+}
+
 void GPIO_ConfigOutputOpenDrain(GPIO_TypeDef *gpio, uint32_t pin)
 {
     volatile uint32_t *config = pin < 8u ? &gpio->CRL : &gpio->CRH;

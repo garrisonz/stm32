@@ -11,6 +11,7 @@ int main(void);
 
 void Reset_Handler(void);
 void Default_Handler(void);
+void TIM2_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
 
 __attribute__((section(".isr_vector")))
 void (*const vector_table[])(void) = {
@@ -30,6 +31,35 @@ void (*const vector_table[])(void) = {
     0,
     Default_Handler,
     Default_Handler,
+    Default_Handler, /* WWDG */
+    Default_Handler, /* PVD */
+    Default_Handler, /* TAMPER */
+    Default_Handler, /* RTC */
+    Default_Handler, /* FLASH */
+    Default_Handler, /* RCC */
+    Default_Handler, /* EXTI0 */
+    Default_Handler, /* EXTI1 */
+    Default_Handler, /* EXTI2 */
+    Default_Handler, /* EXTI3 */
+    Default_Handler, /* EXTI4 */
+    Default_Handler, /* DMA1 Channel1 */
+    Default_Handler, /* DMA1 Channel2 */
+    Default_Handler, /* DMA1 Channel3 */
+    Default_Handler, /* DMA1 Channel4 */
+    Default_Handler, /* DMA1 Channel5 */
+    Default_Handler, /* DMA1 Channel6 */
+    Default_Handler, /* DMA1 Channel7 */
+    Default_Handler, /* ADC1_2 */
+    Default_Handler, /* USB HP/CAN TX */
+    Default_Handler, /* USB LP/CAN RX0 */
+    Default_Handler, /* CAN RX1 */
+    Default_Handler, /* CAN SCE */
+    Default_Handler, /* EXTI9_5 */
+    Default_Handler, /* TIM1 BRK */
+    Default_Handler, /* TIM1 UP */
+    Default_Handler, /* TIM1 TRG COM */
+    Default_Handler, /* TIM1 CC */
+    TIM2_IRQHandler,
 };
 
 void Reset_Handler(void)
