@@ -11,6 +11,7 @@ int main(void);
 
 void Reset_Handler(void);
 void Default_Handler(void);
+void EXTI9_5_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
 void TIM2_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
 
 __attribute__((section(".isr_vector")))
@@ -54,7 +55,7 @@ void (*const vector_table[])(void) = {
     Default_Handler, /* USB LP/CAN RX0 */
     Default_Handler, /* CAN RX1 */
     Default_Handler, /* CAN SCE */
-    Default_Handler, /* EXTI9_5 */
+    EXTI9_5_IRQHandler,
     Default_Handler, /* TIM1 BRK */
     Default_Handler, /* TIM1 UP */
     Default_Handler, /* TIM1 TRG COM */

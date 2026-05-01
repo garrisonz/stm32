@@ -18,6 +18,7 @@ SRCS_OLED := startup_stm32f103.c stm32f1_gpio.c main_oled.c
 SRCS_OLED_OFF := startup_stm32f103.c stm32f1_gpio.c main_oled_off.c
 SRCS_IR_COUNTER_OLED := startup_stm32f103.c stm32f1_gpio.c main_ir_counter_oled.c
 SRCS_ENCODER_OLED := startup_stm32f103.c stm32f1_gpio.c main_encoder_oled.c
+SRCS_ENCODER_EXTI_OLED := startup_stm32f103.c stm32f1_gpio.c main_encoder_exti_oled.c
 SRCS_TIMER_OLED := startup_stm32f103.c stm32f1_gpio.c main_timer_oled.c
 SRCS_TIMER_OLED_POLL := startup_stm32f103.c stm32f1_gpio.c main_timer_oled_poll.c
 SRCS_PWM_BREATH_LED := startup_stm32f103.c stm32f1_gpio.c main_pwm_breath_led.c
@@ -28,7 +29,7 @@ SRCS_DC_MOTOR_TEST := startup_stm32f103.c stm32f1_gpio.c main_dc_motor_test.c
 SRCS := $(SRCS_$(shell echo $(TARGET) | tr a-z A-Z))
 OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
 
-.PHONY: all clean flash blink-pa0 blink-pa0-lib stop buzzer buttons light-buzzer oled oled-off ir-counter-oled encoder-oled timer-oled timer-oled-poll pwm-breath-led servo-button sc0017-button dc-motor-button dc-motor-test flash-blink-pa0 flash-blink-pa0-lib flash-stop flash-buzzer flash-buttons flash-light-buzzer flash-oled flash-oled-off flash-ir-counter-oled flash-encoder-oled flash-timer-oled flash-timer-oled-poll flash-pwm-breath-led flash-servo-button flash-sc0017-button flash-dc-motor-button flash-dc-motor-test
+.PHONY: all clean flash blink-pa0 blink-pa0-lib stop buzzer buttons light-buzzer oled oled-off ir-counter-oled encoder-oled encoder-exti-oled timer-oled timer-oled-poll pwm-breath-led servo-button sc0017-button dc-motor-button dc-motor-test flash-blink-pa0 flash-blink-pa0-lib flash-stop flash-buzzer flash-buttons flash-light-buzzer flash-oled flash-oled-off flash-ir-counter-oled flash-encoder-oled flash-encoder-exti-oled flash-timer-oled flash-timer-oled-poll flash-pwm-breath-led flash-servo-button flash-sc0017-button flash-dc-motor-button flash-dc-motor-test
 
 all: $(BUILD_DIR)/$(TARGET).bin
 
@@ -61,6 +62,9 @@ ir-counter-oled:
 
 encoder-oled:
 	$(MAKE) TARGET=encoder_oled
+
+encoder-exti-oled:
+	$(MAKE) TARGET=encoder_exti_oled
 
 timer-oled:
 	$(MAKE) TARGET=timer_oled
@@ -112,6 +116,9 @@ flash-ir-counter-oled:
 
 flash-encoder-oled:
 	$(MAKE) TARGET=encoder_oled flash
+
+flash-encoder-exti-oled:
+	$(MAKE) TARGET=encoder_exti_oled flash
 
 flash-timer-oled:
 	$(MAKE) TARGET=timer_oled flash
