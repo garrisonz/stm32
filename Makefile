@@ -26,10 +26,11 @@ SRCS_SERVO_BUTTON := startup_stm32f103.c stm32f1_gpio.c main_servo_button.c
 SRCS_SC0017_BUTTON := startup_stm32f103.c stm32f1_gpio.c main_sc0017_button.c
 SRCS_DC_MOTOR_BUTTON := startup_stm32f103.c stm32f1_gpio.c main_dc_motor_button.c
 SRCS_DC_MOTOR_TEST := startup_stm32f103.c stm32f1_gpio.c main_dc_motor_test.c
+SRCS_INPUT_CAPTURE_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_input_capture_oled.c
 SRCS := $(SRCS_$(shell echo $(TARGET) | tr a-z A-Z))
 OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
 
-.PHONY: all clean flash blink-pa0 blink-pa0-lib stop buzzer buttons light-buzzer oled oled-off ir-counter-oled encoder-oled encoder-exti-oled timer-oled timer-oled-poll pwm-breath-led servo-button sc0017-button dc-motor-button dc-motor-test flash-blink-pa0 flash-blink-pa0-lib flash-stop flash-buzzer flash-buttons flash-light-buzzer flash-oled flash-oled-off flash-ir-counter-oled flash-encoder-oled flash-encoder-exti-oled flash-timer-oled flash-timer-oled-poll flash-pwm-breath-led flash-servo-button flash-sc0017-button flash-dc-motor-button flash-dc-motor-test
+.PHONY: all clean flash blink-pa0 blink-pa0-lib stop buzzer buttons light-buzzer oled oled-off ir-counter-oled encoder-oled encoder-exti-oled timer-oled timer-oled-poll pwm-breath-led servo-button sc0017-button dc-motor-button dc-motor-test input-capture-oled flash-blink-pa0 flash-blink-pa0-lib flash-stop flash-buzzer flash-buttons flash-light-buzzer flash-oled flash-oled-off flash-ir-counter-oled flash-encoder-oled flash-encoder-exti-oled flash-timer-oled flash-timer-oled-poll flash-pwm-breath-led flash-servo-button flash-sc0017-button flash-dc-motor-button flash-dc-motor-test flash-input-capture-oled
 
 all: $(BUILD_DIR)/$(TARGET).bin
 
@@ -87,6 +88,9 @@ dc-motor-button:
 dc-motor-test:
 	$(MAKE) TARGET=dc_motor_test
 
+input-capture-oled:
+	$(MAKE) TARGET=input_capture_oled
+
 flash-blink-pa0:
 	$(MAKE) TARGET=blink_pa0 flash
 
@@ -140,6 +144,9 @@ flash-dc-motor-button:
 
 flash-dc-motor-test:
 	$(MAKE) TARGET=dc_motor_test flash
+
+flash-input-capture-oled:
+	$(MAKE) TARGET=input_capture_oled flash
 
 $(BUILD_DIR):
 	mkdir -p $@
