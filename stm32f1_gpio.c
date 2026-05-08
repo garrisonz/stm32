@@ -51,6 +51,16 @@ void GPIO_ConfigInputPullUp(GPIO_TypeDef *gpio, uint32_t pin)
     gpio->BSRR = 1u << pin;      /* ODR=1 selects pull-up on STM32F1. */
 }
 
+void GPIO_ConfigInputPullDown(GPIO_TypeDef *gpio, uint32_t pin)
+{
+    volatile uint32_t *config = pin < 8u ? &gpio->CRL : &gpio->CRH;
+    uint32_t shift = (pin % 8u) * 4u;
+
+    *config &= ~(0xFu << shift);
+    *config |=  (0x8u << shift); /* Input with pull-up/pull-down. */
+    gpio->BRR = 1u << pin;       /* ODR=0 selects pull-down on STM32F1. */
+}
+
 void GPIO_WritePin(GPIO_TypeDef *gpio, uint32_t pin, GPIO_PinState state)
 {
     if (state == GPIO_PIN_SET) {
