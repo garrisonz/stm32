@@ -17,6 +17,7 @@ SECTIONS
   {
     *(.text*)
     *(.rodata*)
+    *(.ARM.exidx*)
     _etext = .;
   } > FLASH
 

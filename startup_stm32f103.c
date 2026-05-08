@@ -12,7 +12,10 @@ int main(void);
 void Reset_Handler(void);
 void Default_Handler(void);
 void EXTI9_5_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void ADC1_2_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
 void TIM2_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void USART1_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
+void EXTI15_10_IRQHandler(void) __attribute__((weak, alias("Default_Handler")));
 
 __attribute__((section(".isr_vector")))
 void (*const vector_table[])(void) = {
@@ -50,7 +53,7 @@ void (*const vector_table[])(void) = {
     Default_Handler, /* DMA1 Channel5 */
     Default_Handler, /* DMA1 Channel6 */
     Default_Handler, /* DMA1 Channel7 */
-    Default_Handler, /* ADC1_2 */
+    ADC1_2_IRQHandler,
     Default_Handler, /* USB HP/CAN TX */
     Default_Handler, /* USB LP/CAN RX0 */
     Default_Handler, /* CAN RX1 */
@@ -61,6 +64,18 @@ void (*const vector_table[])(void) = {
     Default_Handler, /* TIM1 TRG COM */
     Default_Handler, /* TIM1 CC */
     TIM2_IRQHandler,
+    Default_Handler, /* TIM3 */
+    Default_Handler, /* TIM4 */
+    Default_Handler, /* I2C1 EV */
+    Default_Handler, /* I2C1 ER */
+    Default_Handler, /* I2C2 EV */
+    Default_Handler, /* I2C2 ER */
+    Default_Handler, /* SPI1 */
+    Default_Handler, /* SPI2 */
+    USART1_IRQHandler,
+    Default_Handler, /* USART2 */
+    Default_Handler, /* USART3 */
+    EXTI15_10_IRQHandler,
 };
 
 void Reset_Handler(void)

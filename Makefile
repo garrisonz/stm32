@@ -27,10 +27,24 @@ SRCS_SC0017_BUTTON := startup_stm32f103.c stm32f1_gpio.c main_sc0017_button.c
 SRCS_DC_MOTOR_BUTTON := startup_stm32f103.c stm32f1_gpio.c main_dc_motor_button.c
 SRCS_DC_MOTOR_TEST := startup_stm32f103.c stm32f1_gpio.c main_dc_motor_test.c
 SRCS_INPUT_CAPTURE_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_input_capture_oled.c
+SRCS_ADC_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_adc_oled.c
+SRCS_ADC_IRQ_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_adc_irq_oled.c
+SRCS_USART1_TX := startup_stm32f103.c main_usart1_tx.c
+SRCS_USART1_ECHO := startup_stm32f103.c main_usart1_echo.c
+SRCS_MPU6050_SOFT_I2C := startup_stm32f103.c stm32f1_gpio.c main_mpu6050_soft_i2c.c
+SRCS_MPU6050_SOFT_I2C_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_mpu6050_soft_i2c_oled.c
+SRCS_MPU6050_HW_I2C_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_mpu6050_hw_i2c_oled.c
+SRCS_W25Q64_SOFT_SPI_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_w25q64_soft_spi_oled.c
+SRCS_W25Q64_HW_SPI_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_w25q64_hw_spi_oled.c
+SRCS_BKP_REGISTER_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_bkp_register_oled.c
+SRCS_RTC_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_rtc_oled.c
+SRCS_CLOCK_CONTROL_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_clock_control_oled.c
+SRCS_SLEEP_USART_WAKEUP_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_sleep_usart_wakeup_oled.c
+SRCS_STOP_EXTI_PB14_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_stop_exti_pb14_oled.c
 SRCS := $(SRCS_$(shell echo $(TARGET) | tr a-z A-Z))
 OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
 
-.PHONY: all clean flash blink-pa0 blink-pa0-lib stop buzzer buttons light-buzzer oled oled-off ir-counter-oled encoder-oled encoder-exti-oled timer-oled timer-oled-poll pwm-breath-led servo-button sc0017-button dc-motor-button dc-motor-test input-capture-oled flash-blink-pa0 flash-blink-pa0-lib flash-stop flash-buzzer flash-buttons flash-light-buzzer flash-oled flash-oled-off flash-ir-counter-oled flash-encoder-oled flash-encoder-exti-oled flash-timer-oled flash-timer-oled-poll flash-pwm-breath-led flash-servo-button flash-sc0017-button flash-dc-motor-button flash-dc-motor-test flash-input-capture-oled
+.PHONY: all clean flash blink-pa0 blink-pa0-lib stop buzzer buttons light-buzzer oled oled-off ir-counter-oled encoder-oled encoder-exti-oled timer-oled timer-oled-poll pwm-breath-led servo-button sc0017-button dc-motor-button dc-motor-test input-capture-oled adc-oled adc-irq-oled usart1-tx usart1-echo mpu6050-soft-i2c mpu6050-soft-i2c-oled mpu6050-hw-i2c-oled w25q64-soft-spi-oled w25q64-hw-spi-oled bkp-register-oled rtc-oled clock-control-oled sleep-usart-wakeup-oled stop-exti-pb14-oled flash-blink-pa0 flash-blink-pa0-lib flash-stop flash-buzzer flash-buttons flash-light-buzzer flash-oled flash-oled-off flash-ir-counter-oled flash-encoder-oled flash-encoder-exti-oled flash-timer-oled flash-timer-oled-poll flash-pwm-breath-led flash-servo-button flash-sc0017-button flash-dc-motor-button flash-dc-motor-test flash-input-capture-oled flash-adc-oled flash-adc-irq-oled flash-usart1-tx flash-usart1-echo flash-mpu6050-soft-i2c flash-mpu6050-soft-i2c-oled flash-mpu6050-hw-i2c-oled flash-w25q64-soft-spi-oled flash-w25q64-hw-spi-oled flash-bkp-register-oled flash-rtc-oled flash-clock-control-oled flash-sleep-usart-wakeup-oled flash-stop-exti-pb14-oled
 
 all: $(BUILD_DIR)/$(TARGET).bin
 
@@ -91,6 +105,48 @@ dc-motor-test:
 input-capture-oled:
 	$(MAKE) TARGET=input_capture_oled
 
+adc-oled:
+	$(MAKE) TARGET=adc_oled
+
+adc-irq-oled:
+	$(MAKE) TARGET=adc_irq_oled
+
+usart1-tx:
+	$(MAKE) TARGET=usart1_tx
+
+usart1-echo:
+	$(MAKE) TARGET=usart1_echo
+
+mpu6050-soft-i2c:
+	$(MAKE) TARGET=mpu6050_soft_i2c
+
+mpu6050-soft-i2c-oled:
+	$(MAKE) TARGET=mpu6050_soft_i2c_oled
+
+mpu6050-hw-i2c-oled:
+	$(MAKE) TARGET=mpu6050_hw_i2c_oled
+
+w25q64-soft-spi-oled:
+	$(MAKE) TARGET=w25q64_soft_spi_oled
+
+w25q64-hw-spi-oled:
+	$(MAKE) TARGET=w25q64_hw_spi_oled
+
+bkp-register-oled:
+	$(MAKE) TARGET=bkp_register_oled
+
+rtc-oled:
+	$(MAKE) TARGET=rtc_oled
+
+clock-control-oled:
+	$(MAKE) TARGET=clock_control_oled
+
+sleep-usart-wakeup-oled:
+	$(MAKE) TARGET=sleep_usart_wakeup_oled
+
+stop-exti-pb14-oled:
+	$(MAKE) TARGET=stop_exti_pb14_oled
+
 flash-blink-pa0:
 	$(MAKE) TARGET=blink_pa0 flash
 
@@ -147,6 +203,48 @@ flash-dc-motor-test:
 
 flash-input-capture-oled:
 	$(MAKE) TARGET=input_capture_oled flash
+
+flash-adc-oled:
+	$(MAKE) TARGET=adc_oled flash
+
+flash-adc-irq-oled:
+	$(MAKE) TARGET=adc_irq_oled flash
+
+flash-usart1-tx:
+	$(MAKE) TARGET=usart1_tx flash
+
+flash-usart1-echo:
+	$(MAKE) TARGET=usart1_echo flash
+
+flash-mpu6050-soft-i2c:
+	$(MAKE) TARGET=mpu6050_soft_i2c flash
+
+flash-mpu6050-soft-i2c-oled:
+	$(MAKE) TARGET=mpu6050_soft_i2c_oled flash
+
+flash-mpu6050-hw-i2c-oled:
+	$(MAKE) TARGET=mpu6050_hw_i2c_oled flash
+
+flash-w25q64-soft-spi-oled:
+	$(MAKE) TARGET=w25q64_soft_spi_oled flash
+
+flash-w25q64-hw-spi-oled:
+	$(MAKE) TARGET=w25q64_hw_spi_oled flash
+
+flash-bkp-register-oled:
+	$(MAKE) TARGET=bkp_register_oled flash
+
+flash-rtc-oled:
+	$(MAKE) TARGET=rtc_oled flash
+
+flash-clock-control-oled:
+	$(MAKE) TARGET=clock_control_oled flash
+
+flash-sleep-usart-wakeup-oled:
+	$(MAKE) TARGET=sleep_usart_wakeup_oled flash
+
+flash-stop-exti-pb14-oled:
+	$(MAKE) TARGET=stop_exti_pb14_oled flash
 
 $(BUILD_DIR):
 	mkdir -p $@
