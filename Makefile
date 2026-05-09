@@ -5,44 +5,49 @@ CC := arm-none-eabi-gcc
 OBJCOPY := arm-none-eabi-objcopy
 
 MCU_FLAGS := -mcpu=cortex-m3 -mthumb
-CFLAGS := $(MCU_FLAGS) -std=c11 -Wall -Wextra -Werror -Os -ffunction-sections -fdata-sections
+CFLAGS := $(MCU_FLAGS) -std=c11 -Wall -Wextra -Werror -Os -ffunction-sections -fdata-sections -Isrc
 LDFLAGS := $(MCU_FLAGS) -T linker.ld -nostartfiles -Wl,--gc-sections -Wl,-Map=$(BUILD_DIR)/$(TARGET).map
 
-SRCS_BLINK_PA0 := startup_stm32f103.c main.c
-SRCS_BLINK_PA0_LIB := startup_stm32f103.c stm32f1_gpio.c main_lib.c
-SRCS_STOP := startup_stm32f103.c stm32f1_gpio.c main_stop.c
-SRCS_BUZZER := startup_stm32f103.c stm32f1_gpio.c main_buzzer.c
-SRCS_BUTTONS := startup_stm32f103.c stm32f1_gpio.c main_buttons.c
-SRCS_LIGHT_BUZZER := startup_stm32f103.c stm32f1_gpio.c main_light_buzzer.c
-SRCS_OLED := startup_stm32f103.c stm32f1_gpio.c main_oled.c
-SRCS_OLED_OFF := startup_stm32f103.c stm32f1_gpio.c main_oled_off.c
-SRCS_IR_COUNTER_OLED := startup_stm32f103.c stm32f1_gpio.c main_ir_counter_oled.c
-SRCS_ENCODER_OLED := startup_stm32f103.c stm32f1_gpio.c main_encoder_oled.c
-SRCS_ENCODER_EXTI_OLED := startup_stm32f103.c stm32f1_gpio.c main_encoder_exti_oled.c
-SRCS_TIMER_OLED := startup_stm32f103.c stm32f1_gpio.c main_timer_oled.c
-SRCS_TIMER_OLED_POLL := startup_stm32f103.c stm32f1_gpio.c main_timer_oled_poll.c
-SRCS_PWM_BREATH_LED := startup_stm32f103.c stm32f1_gpio.c main_pwm_breath_led.c
-SRCS_SERVO_BUTTON := startup_stm32f103.c stm32f1_gpio.c main_servo_button.c
-SRCS_SC0017_BUTTON := startup_stm32f103.c stm32f1_gpio.c main_sc0017_button.c
-SRCS_DC_MOTOR_BUTTON := startup_stm32f103.c stm32f1_gpio.c main_dc_motor_button.c
-SRCS_DC_MOTOR_TEST := startup_stm32f103.c stm32f1_gpio.c main_dc_motor_test.c
-SRCS_INPUT_CAPTURE_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_input_capture_oled.c
-SRCS_ADC_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_adc_oled.c
-SRCS_ADC_IRQ_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_adc_irq_oled.c
-SRCS_USART1_TX := startup_stm32f103.c main_usart1_tx.c
-SRCS_USART1_ECHO := startup_stm32f103.c main_usart1_echo.c
-SRCS_MPU6050_SOFT_I2C := startup_stm32f103.c stm32f1_gpio.c main_mpu6050_soft_i2c.c
-SRCS_MPU6050_SOFT_I2C_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_mpu6050_soft_i2c_oled.c
-SRCS_MPU6050_HW_I2C_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_mpu6050_hw_i2c_oled.c
-SRCS_W25Q64_SOFT_SPI_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_w25q64_soft_spi_oled.c
-SRCS_W25Q64_HW_SPI_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_w25q64_hw_spi_oled.c
-SRCS_BKP_REGISTER_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_bkp_register_oled.c
-SRCS_RTC_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_rtc_oled.c
-SRCS_CLOCK_CONTROL_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_clock_control_oled.c
-SRCS_SLEEP_USART_WAKEUP_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_sleep_usart_wakeup_oled.c
-SRCS_STOP_EXTI_PB14_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_stop_exti_pb14_oled.c
-SRCS_STANDBY_WKUP_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_standby_wkup_oled.c
-SRCS_IWDG_BUTTON_OLED := startup_stm32f103.c stm32f1_gpio.c oled_display.c main_iwdg_button_oled.c
+STARTUP := src/startup_stm32f103.c
+GPIO := src/stm32f1_gpio.c
+OLED := src/oled_display.c
+EXAMPLES := examples
+
+SRCS_BLINK_PA0 := $(STARTUP) $(EXAMPLES)/main.c
+SRCS_BLINK_PA0_LIB := $(STARTUP) $(GPIO) $(EXAMPLES)/main_lib.c
+SRCS_STOP := $(STARTUP) $(GPIO) $(EXAMPLES)/main_stop.c
+SRCS_BUZZER := $(STARTUP) $(GPIO) $(EXAMPLES)/main_buzzer.c
+SRCS_BUTTONS := $(STARTUP) $(GPIO) $(EXAMPLES)/main_buttons.c
+SRCS_LIGHT_BUZZER := $(STARTUP) $(GPIO) $(EXAMPLES)/main_light_buzzer.c
+SRCS_OLED := $(STARTUP) $(GPIO) $(EXAMPLES)/main_oled.c
+SRCS_OLED_OFF := $(STARTUP) $(GPIO) $(EXAMPLES)/main_oled_off.c
+SRCS_IR_COUNTER_OLED := $(STARTUP) $(GPIO) $(EXAMPLES)/main_ir_counter_oled.c
+SRCS_ENCODER_OLED := $(STARTUP) $(GPIO) $(EXAMPLES)/main_encoder_oled.c
+SRCS_ENCODER_EXTI_OLED := $(STARTUP) $(GPIO) $(EXAMPLES)/main_encoder_exti_oled.c
+SRCS_TIMER_OLED := $(STARTUP) $(GPIO) $(EXAMPLES)/main_timer_oled.c
+SRCS_TIMER_OLED_POLL := $(STARTUP) $(GPIO) $(EXAMPLES)/main_timer_oled_poll.c
+SRCS_PWM_BREATH_LED := $(STARTUP) $(GPIO) $(EXAMPLES)/main_pwm_breath_led.c
+SRCS_SERVO_BUTTON := $(STARTUP) $(GPIO) $(EXAMPLES)/main_servo_button.c
+SRCS_SC0017_BUTTON := $(STARTUP) $(GPIO) $(EXAMPLES)/main_sc0017_button.c
+SRCS_DC_MOTOR_BUTTON := $(STARTUP) $(GPIO) $(EXAMPLES)/main_dc_motor_button.c
+SRCS_DC_MOTOR_TEST := $(STARTUP) $(GPIO) $(EXAMPLES)/main_dc_motor_test.c
+SRCS_INPUT_CAPTURE_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_input_capture_oled.c
+SRCS_ADC_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_adc_oled.c
+SRCS_ADC_IRQ_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_adc_irq_oled.c
+SRCS_USART1_TX := $(STARTUP) $(EXAMPLES)/main_usart1_tx.c
+SRCS_USART1_ECHO := $(STARTUP) $(EXAMPLES)/main_usart1_echo.c
+SRCS_MPU6050_SOFT_I2C := $(STARTUP) $(GPIO) $(EXAMPLES)/main_mpu6050_soft_i2c.c
+SRCS_MPU6050_SOFT_I2C_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_mpu6050_soft_i2c_oled.c
+SRCS_MPU6050_HW_I2C_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_mpu6050_hw_i2c_oled.c
+SRCS_W25Q64_SOFT_SPI_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_w25q64_soft_spi_oled.c
+SRCS_W25Q64_HW_SPI_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_w25q64_hw_spi_oled.c
+SRCS_BKP_REGISTER_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_bkp_register_oled.c
+SRCS_RTC_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_rtc_oled.c
+SRCS_CLOCK_CONTROL_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_clock_control_oled.c
+SRCS_SLEEP_USART_WAKEUP_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_sleep_usart_wakeup_oled.c
+SRCS_STOP_EXTI_PB14_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_stop_exti_pb14_oled.c
+SRCS_STANDBY_WKUP_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_standby_wkup_oled.c
+SRCS_IWDG_BUTTON_OLED := $(STARTUP) $(GPIO) $(OLED) $(EXAMPLES)/main_iwdg_button_oled.c
 SRCS := $(SRCS_$(shell echo $(TARGET) | tr a-z A-Z))
 OBJS := $(SRCS:%.c=$(BUILD_DIR)/%.o)
 
@@ -264,6 +269,7 @@ $(BUILD_DIR):
 	mkdir -p $@
 
 $(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
+	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BUILD_DIR)/$(TARGET).elf: $(OBJS) linker.ld
